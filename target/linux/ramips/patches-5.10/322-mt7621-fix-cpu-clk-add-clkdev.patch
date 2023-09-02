@@ -118,8 +118,8 @@
 +		pll = rt_memc_r32(MEMC_REG_CPU_PLL);
 +		if ((pll & 0x7f0) == 0x2b0) {
 +			volatile u32 i;
-+
-+			pr_info("CPU Clock: 880MHz, start overclocking\n");
++   pr_info("Current CPU Clock: %dMHz\n", cpu_clk / 1000000);
++			pr_info("Kernel Hack Start: Try Overclocking 1100MHz ...\n");
 +			pll &= ~0x7ff;
 +			pll |= 0x362;
 +			rt_memc_w32(pll, MEMC_REG_CPU_PLL);
@@ -139,7 +139,7 @@
 +	clks[MT7621_CLK_CPU] = mt7621_add_sys_clkdev("cpu", cpu_clk);
 +	clks[MT7621_CLK_BUS] = mt7621_add_sys_clkdev("bus", bus_clk);
 +
-+	pr_info("CPU Clock: %dMHz\n", cpu_clk / 1000000);
++	pr_info("Finalized CPU Clock: %dMHz\n", cpu_clk / 1000000);
 +	mips_hpt_frequency = cpu_clk / 2;
 +}
 +
